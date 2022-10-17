@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const rutasCoins = require("./coins/routes.js");
-const rutasUsers = require("./coins/routes.js");
+const rutasUsers = require("./users/routes.js");
 app.use("/assets", express.static(path.join(__dirname, "public")));
 
 const middleWare = (req, res, next) => {
@@ -10,7 +10,6 @@ const middleWare = (req, res, next) => {
 };
 
 app.get("/", (req, res) => {
-  //   res.sendFile(path.join(__dirname, "/index.html"));
   res.send("Success");
 });
 
