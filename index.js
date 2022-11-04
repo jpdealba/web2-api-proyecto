@@ -1,22 +1,27 @@
 const express = require("express");
+require("dotenv").config();
+const database = require("./database");
+const apiRoutes = require("./src/api");
 const app = express();
-const path = require("path");
-const rutasCoins = require("./coins/routes.js");
-const rutasUsers = require("./users/routes.js");
-app.use("/assets", express.static(path.join(__dirname, "public")));
 
-const middleWare = (req, res, next) => {
-  next();
-};
+const port = process.env.PORT || 3000;
+app.use(express.json());
+app.use("/api", apiRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Success");
+app.get("", (req, res) => {
+  res.send("api works!");
 });
 
-app.listen(3000, () => {
-  console.log("app is running in port 3000");
-});
+database
+  .connect()
+  .then((client) => {
+    const db = client.db("CoinCap");
+    database.db(db);
 
-// app.use("/noticias", middleWare, rutasNoticias);
-app.use("/coins", middleWare, rutasCoins);
-app.use("/users", middleWare, rutasUsers);
+    app.listen(port, () => {
+      console.log("app is running in port " + port);
+    });
+  })
+  .catch((err) => {
+    console.log("Failed to connect to database");
+  });
