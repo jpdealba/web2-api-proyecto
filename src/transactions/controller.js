@@ -3,16 +3,16 @@ const TransactionModel = require("./model");
 class CoinsController {
   getUserTransactions(req, res) {
     const Transaction = new TransactionModel();
-    const userId = req.params.id;
+    const userId = req.params.user_id;
     Transaction.findUserTransactions(userId).then((resp) => {
-      res.send(reresps);
+      res.send(resp);
     });
   }
 
   getCoinTransactions(req, res) {
     const Transaction = new TransactionModel();
-    const coinId = req.params.id;
-    Transaction.findCoinTransactions(coinId).then((resp) => {
+    const symbol = req.params.coin_id;
+    Transaction.findCoinTransactions(symbol).then((resp) => {
       res.send(resp);
     });
   }

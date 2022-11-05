@@ -6,15 +6,17 @@ class Transaction {
   async findUserTransactions(user_id) {
     const db = database();
     const collection = db.collection("transactions");
-    const result = await collection.findOne({ user_id: user_id }).toArray();
+    const result = await collection.find({ user_id: user_id }).toArray();
     return result;
   }
 
-  async getCoinTransactions(coind_id) {
+  async findCoinTransactions(symbol) {
     const db = database();
     const collection = db.collection("transactions");
-    // const result = await collection.findOne({ _id: id });
-    return {};
+    const result = await collection
+      .find({ $or: [{ symbol_from: symbol }, { symbol_to: symbol }] })
+      .toArray();
+    return result;
   }
 
   async postTransaction(data) {
@@ -41,7 +43,7 @@ class Transaction {
         coin2Transaction
       );
       await collection.insertOne({
-        user_id: data.userId,
+        user_id: data.user_id,
         timestamp: new Date().toISOString(),
         symbol_from: symbolFrom,
         symbol_to: symbolTo,
