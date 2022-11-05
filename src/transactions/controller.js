@@ -4,7 +4,7 @@ class CoinsController {
   getUserTransactions(req, res) {
     const Transaction = new TransactionModel();
     const userId = req.params.id;
-    Transaction.finUserTransactions(userId).then((resp) => {
+    Transaction.findUserTransactions(userId).then((resp) => {
       res.send(reresps);
     });
   }

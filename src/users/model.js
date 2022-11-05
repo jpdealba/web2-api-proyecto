@@ -5,7 +5,9 @@ class User {
     const db = database();
     const collection = db.collection("users");
     const result = await collection.findOne({ _id: user_id });
-    return result;
+    if (result.suspended) {
+      return { message: "account suspended" };
+    } else return result;
   }
 
   async createOne(data) {

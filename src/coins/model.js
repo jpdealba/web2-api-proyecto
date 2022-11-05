@@ -11,7 +11,7 @@ class Coin {
   async findOne(id) {
     const db = database();
     const collection = db.collection("coins");
-    const result = await collection.findOne({ _id: id });
+    const result = await collection.findOne({ symbol: id });
     return result;
   }
 }
