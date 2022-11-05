@@ -24,18 +24,18 @@ class Transaction {
     const Coin = new CoinModel();
     const db = database();
     const collection = db.collection("transactions");
-    const symbolFrom = data.symbol_from.toUpperCase();
-    const symbolTo = data.symbol_to.toUpperCase();
+    const symbolFrom = data.symbol_from;
+    const symbolTo = data.symbol_to;
     // Get balance de usuario de la moneda inicial
     const userBalanceCoinFrom = await Balance.findOneFromUser(
       data.user_id,
       symbolFrom
     );
-    if (userBalanceCoinFrom.qty >= data.qty) {
+    if (userBalanceCoinFrom && userBalanceCoinFrom.qty >= data.qty) {
       const coin1 = await Coin.findOne(symbolFrom);
       const coin2 = await Coin.findOne(symbolTo);
-      const usdCoin1 = coin1.price * data.qty;
-      const coin2Transaction = usdCoin1 / coin2.price;
+      const usdCoin1 = coin1.current_price * data.qty;
+      const coin2Transaction = usdCoin1 / coin2.current_price;
       await Balance.updateCoinFromUser(data.user_id, symbolFrom, -data.qty);
       await Balance.updateCoinFromUser(
         data.user_id,
@@ -49,8 +49,8 @@ class Transaction {
         symbol_to: symbolTo,
         qty_from: data.qty,
         qty_to: coin2Transaction,
-        price_from: coin1.price,
-        price_to: coin2.price,
+        price_from: coin1.current_price,
+        price_to: coin2.current_price,
       });
       return { transaction: "succesfull" };
     } else {
