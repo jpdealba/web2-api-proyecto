@@ -30,3 +30,5 @@ database
   .catch((err) => {
     console.log("Failed to connect to database");
   });
+
+module.exports = app;
