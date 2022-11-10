@@ -54,6 +54,11 @@ router.post("/", controller.postOne);
  *        description: User ID
  *        schema:
  *          type: string
+ *      - in: body
+ *        name: changes
+ *        description: {name?, email?, photo?, password?}
+ *        schema:
+ *          type: object
  *    responses:
  *      200:
  *        description: Actualiza el usuario
