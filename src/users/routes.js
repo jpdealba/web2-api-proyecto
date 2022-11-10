@@ -5,13 +5,13 @@ const controller = require("./controller");
 // Obtiene el usuario
 /**
  * @swagger
- * /api/users/:id:
+ * /api/users/{:id}:
  *  get:
  *    description: Obtiene el usuario según su id
  *    parameters:
- *      - in: query|path
- *        name: id
- *        description: put id
+ *      - in: path
+ *        name: :id
+ *        description: User ID
  *        schema:
  *          type: string
  *    responses:
@@ -25,26 +25,59 @@ router.get("/:id", controller.getOne);
 // Crea un nuevo usuario -. {name, email, photo, password}
 /**
  * @swagger
- * /api/users/:id:
+ * /api/users/:
  *  post:
- *    description: Obtiene el usuario según su id
+ *    description: Crea un nuevo usuario
  *    parameters:
- *      - in: query|path
- *        name: id
- *        description: put id
+ *      - in: body
+ *        name: User JSON
+ *        description: {name, email, photo, password}
  *        schema:
- *          type: string
+ *          type: object
  *    responses:
- *      200:
- *        description: Obtiene el usuario
- *      404:
- *        description: Not found
+ *      201:
+ *        description: Usuario creado
+ *      500:
+ *        description: Server error
  */
 router.post("/", controller.postOne);
 
 // Actualiza un usuario - Actualiza un nuevo usuario - {name?, email?, photo?, password?}
+/**
+ * @swagger
+ * /api/users/{:id}:
+ *  put:
+ *    description: Actualiza el usuario según su id
+ *    parameters:
+ *      - in: path
+ *        name: :id
+ *        description: User ID
+ *        schema:
+ *          type: string
+ *    responses:
+ *      200:
+ *        description: Actualiza el usuario
+ *      404:
+ *        description: Not found
+ */
 router.put("/:id", controller.putOne);
-
+/**
+ * @swagger
+ * /api/users/{:id}:
+ *  delete:
+ *    description: Elimina el usuario según su id
+ *    parameters:
+ *      - in: path
+ *        name: :id
+ *        description: User ID
+ *        schema:
+ *          type: string
+ *    responses:
+ *      200:
+ *        description: Elimina el usuario
+ *      404:
+ *        description: Not found
+ */
 router.delete("/:id", controller.deleteOne);
 
 module.exports = router;
