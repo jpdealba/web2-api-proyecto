@@ -25,18 +25,16 @@ class Balance {
     });
 
     if (result) {
-      await collection.updateOne(
+      return await collection.updateOne(
         { user_id: userId, symbol: symbol },
         { $set: { qty: result.qty + qty } }
       );
-      return true;
     } else {
-      await collection.insertOne({
+      return await collection.insertOne({
         user_id: userId,
         qty: qty,
         symbol: symbol,
       });
-      return true;
     }
   }
 }

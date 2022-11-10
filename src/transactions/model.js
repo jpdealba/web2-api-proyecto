@@ -42,7 +42,7 @@ class Transaction {
         symbolTo,
         coin2Transaction
       );
-      await collection.insertOne({
+      return await collection.insertOne({
         user_id: data.user_id,
         timestamp: new Date().toISOString(),
         symbol_from: symbolFrom,
@@ -52,9 +52,8 @@ class Transaction {
         price_from: coin1.current_price,
         price_to: coin2.current_price,
       });
-      return { transaction: "succesfull" };
     } else {
-      return { transaction: "insufficient balance" };
+      return null;
     }
   }
 }
