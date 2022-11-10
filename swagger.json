@@ -1,0 +1,17 @@
+{
+    "swaggerDefinition": {
+        "swagger" : "2.0",
+        "info":{
+            "description" : "Coins api project",
+            "version" : "1.0.0",
+            "title" : "COINS API",
+            "contact" :{
+                "author" : "PNT-JPDAT",
+                "email" : "is721596@iteso.mx"
+            }
+        },
+        "basePath" : "/",
+        "host" : "localhost:3000"
+    },
+    "apis" : ["index.js", "router/index.js","src/users/routes.js","src/transactions/routes.js","src/coins/routes.js","src/balance/routes.js"]
+}
