@@ -42,7 +42,7 @@ class UserController {
     const userId = req.params.id;
     User.suspendOne(userId).then((resp) => {
       if (resp.matchedCount == 1) {
-        res.send(resp);
+        res.status(204);
       } else {
         res.status(404).json({ error: "Not found" });
       }

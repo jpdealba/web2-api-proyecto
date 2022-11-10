@@ -5,7 +5,11 @@ class BalanceController {
     const Balance = new BalanceModel();
     const userId = req.params.id;
     Balance.findAll(userId).then((resp) => {
-      res.send(resp);
+      if (resp) {
+        res.send(resp);
+      } else {
+        res.status(404).json({ error: "Not found" });
+      }
     });
   }
 }
