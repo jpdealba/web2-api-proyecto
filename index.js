@@ -16,21 +16,7 @@ app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use("/api", apiRoutes);
-/**
- * @swagger
- * /api:
- *  get:
- *    description: api workingt
- *    parameters:
- *      - in: body|query|path
- *        name: param name
- *        description: param description
- *        schema:
- *          type: string|number|boolean|object
- *    responses:
- *      200:
- *        description: api success
- */
+
 app.get("", (req, res) => {
   res.send("api works!");
 });
