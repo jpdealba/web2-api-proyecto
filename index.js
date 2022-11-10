@@ -7,10 +7,30 @@ const CoinModel = require("./src/coins/model");
 const Coin = new CoinModel();
 var cron = require("node-cron");
 
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+const swaggerOptions = require('./swagger.json');
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
 const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use("/api", apiRoutes);
-
+/**
+ * @swagger
+ * /api:
+ *  get:
+ *    description: api workingt
+ *    parameters:
+ *      - in: body|query|path
+ *        name: param name
+ *        description: param description
+ *        schema:
+ *          type: string|number|boolean|object
+ *    responses:
+ *      200:
+ *        description: api success
+ */
 app.get("", (req, res) => {
   res.send("api works!");
 });
