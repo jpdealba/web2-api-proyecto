@@ -73,7 +73,7 @@ router.put("/:id", controller.putOne);
  *        schema:
  *          type: string
  *    responses:
- *      200:
+ *      204:
  *        description: Elimina el usuario
  *      404:
  *        description: Not found
