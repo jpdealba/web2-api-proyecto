@@ -27,6 +27,7 @@ class Login {
     if (!token) return false;
     try {
       const db = database();
+
       const collection = db.collection("users");
       const decoded = jwt.decode(token, process.env.TOKEN_SECRET);
       const resp = await collection.findOne({
