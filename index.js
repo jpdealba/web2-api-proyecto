@@ -21,6 +21,22 @@ const port = process.env.PORT || 4004;
 app.use(express.json());
 app.use("/api", apiRoutes);
 
+database
+  .connect()
+  .then((client) => {
+    const db = client.db("CoinCap");
+    database.db(db);
+    cron.schedule("*/10 * * * *", () => {
+      Coin.updateDB();
+    });
+    app.listen(port, () => {
+      console.log("app is running in port " + port);
+    });
+  })
+  .catch((err) => {
+    console.log("Failed to connect to database");
+  });
+
 app.get("", (req, res) => {
   res.send("api works!");
 });
@@ -40,21 +56,5 @@ app.get("/google/:token", (req, res) => {
       res.status(401).send({ isvalid: false });
     });
 });
-
-database
-  .connect()
-  .then((client) => {
-    const db = client.db("CoinCap");
-    database.db(db);
-    cron.schedule("*/10 * * * *", () => {
-      Coin.updateDB();
-    });
-    app.listen(port, () => {
-      console.log("app is running in port " + port);
-    });
-  })
-  .catch((err) => {
-    console.log("Failed to connect to database");
-  });
 
 module.exports = app;
