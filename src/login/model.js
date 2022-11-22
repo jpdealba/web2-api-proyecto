@@ -3,24 +3,24 @@ const jwt = require("jsonwebtoken");
 
 class Login {
   async createOne(data) {
-    // const db = database();
-    // const collection = db.collection("users");
+    const db = database();
+    const collection = db.collection("users");
     try {
-      // const resp = await collection.findOne({
-      //   email: data.email,
-      //   password: data.password,
-      // });
+      const resp = await collection.findOne({
+        email: data.email,
+        password: data.password,
+      });
 
-      // if (resp && !resp.suspended) {
-      return {
-        token: jwt.sign(
-          { email: data.email, password: data.password },
-          process.env.TOKEN_SECRET
-        ),
-      };
-      // } else {
-      //   return null;
-      // }
+      if (resp) {
+        return {
+          token: jwt.sign(
+            { email: data.email, password: data.password },
+            process.env.TOKEN_SECRET
+          ),
+        };
+      } else {
+        return null;
+      }
     } catch (err) {
       return null;
     }
@@ -28,19 +28,21 @@ class Login {
 
   async verifyOne(token) {
     if (!token) return false;
+    const db = database();
+    const collection = db.collection("users");
     try {
       // const db = database();
       // const collection = db.collection("users");
-      // const decoded = jwt.decode(token, process.env.TOKEN_SECRET);
-      // const resp = await collection.findOne({
-      //   email: decoded.email,
-      //   password: decoded.password,
-      // });
+      const decoded = jwt.decode(token, process.env.TOKEN_SECRET);
+      const resp = await collection.findOne({
+        email: decoded.email,
+        password: decoded.password,
+      });
       return jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
         if (err) {
           return false;
         } else {
-          return { token: token };
+          return { ...resp, token: token };
         }
       });
     } catch (err) {
