@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 class Login {
   async createOne(data) {
     const db = database();
+
     const collection = db.collection("users");
     const resp = await collection.findOne({
       email: data.email,
