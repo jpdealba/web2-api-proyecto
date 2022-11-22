@@ -24,10 +24,9 @@ class Login {
   }
 
   async verifyOne(token) {
-    if (token == null) return false;
+    if (!token) return false;
     const db = database();
     const collection = db.collection("users");
-    console.log(token);
     try {
       const decoded = jwt.decode(token, process.env.TOKEN_SECRET);
       const resp = await collection.findOne({
