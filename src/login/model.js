@@ -5,20 +5,24 @@ class Login {
   async createOne(data) {
     const db = database();
     const collection = db.collection("users");
-    const resp = await collection.findOne({
-      email: data.email,
-      password: data.password,
-    });
+    try {
+      const resp = await collection.findOne({
+        email: data.email,
+        password: data.password,
+      });
 
-    if (resp && !resp.suspended) {
-      return {
-        ...resp,
-        token: jwt.sign(
-          { email: data.email, password: data.password },
-          process.env.TOKEN_SECRET
-        ),
-      };
-    } else {
+      if (resp && !resp.suspended) {
+        return {
+          ...resp,
+          token: jwt.sign(
+            { email: data.email, password: data.password },
+            process.env.TOKEN_SECRET
+          ),
+        };
+      } else {
+        return null;
+      }
+    } catch (err) {
       return null;
     }
   }
