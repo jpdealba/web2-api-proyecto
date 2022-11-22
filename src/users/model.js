@@ -13,7 +13,7 @@ class User {
   async createOne(data) {
     const db = database();
     const collection = db.collection("users");
-    return await collection.insertOne(data);
+    return await collection.insertOne({ ...data, roles: ["user"] });
   }
 
   async updateOne(data, userId) {
