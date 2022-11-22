@@ -7,7 +7,7 @@ class LoginController {
       if (resp) {
         res.send(resp);
       } else {
-        res.status(401);
+        res.status(401).send({ error: "Not valid credentials" });
       }
     });
   }
@@ -18,7 +18,7 @@ class LoginController {
       if (resp) {
         res.send(resp);
       } else {
-        res.status(401);
+        res.status(401).send({ status: "Token Not Valid" });
       }
     });
   }
