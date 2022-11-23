@@ -19,7 +19,22 @@ app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 const port = process.env.PORT || 4004;
 app.use(express.json());
-app.use("/api", apiRoutes);
+
+app.get("/google/:token", (req, res) => {
+  const token = req.params.token;
+  googleClient
+    .verifyIdToken({ idToken: token })
+    .then((response) => {
+      const data = response.getPayload();
+      console.log("Data: ", data);
+      console.log("valid");
+      res.send({ isvalid: true });
+    })
+    .catch((err) => {
+      console.log("Failed to validate token");
+      res.status(401).send({ isvalid: false });
+    });
+});
 
 database
   .connect()
@@ -41,20 +56,6 @@ app.get("", (req, res) => {
   res.send("api works!");
 });
 
-app.get("/google/:token", (req, res) => {
-  const token = req.params.token;
-  googleClient
-    .verifyIdToken({ idToken: token })
-    .then((response) => {
-      const data = response.getPayload();
-      console.log("Data: ", data);
-      console.log("valid");
-      res.send({ isvalid: true });
-    })
-    .catch((err) => {
-      console.log("Failed to validate token");
-      res.status(401).send({ isvalid: false });
-    });
-});
+app.use("/api", apiRoutes);
 
 module.exports = app;
