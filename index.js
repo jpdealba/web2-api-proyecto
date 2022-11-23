@@ -4,7 +4,7 @@ const database = require("./database");
 const apiRoutes = require("./src/api");
 const app = express();
 const CoinModel = require("./src/coins/model");
-const Coin = new CoinModel();
+// const Coin = new CoinModel();
 var cron = require("node-cron");
 
 const swaggerJsDoc = require("swagger-jsdoc");
@@ -41,9 +41,9 @@ database
   .then((client) => {
     const db = client.db("CoinCap");
     database.db(db);
-    cron.schedule("*/10 * * * *", () => {
-      Coin.updateDB();
-    });
+    // cron.schedule("*/10 * * * *", () => {
+    //   Coin.updateDB();
+    // });
     app.listen(port, () => {
       console.log("app is running in port " + port);
     });
