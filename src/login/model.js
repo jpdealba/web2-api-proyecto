@@ -12,6 +12,7 @@ class Login {
       });
       if (resp) {
         return {
+          ...resp,
           token: jwt.sign(
             { email: data.email, password: data.password },
             process.env.TOKEN_SECRET
