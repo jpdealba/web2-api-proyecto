@@ -54,6 +54,22 @@ database
   });
 
 app.get("", (req, res) => {
+  database
+    .connect()
+    .then((client) => {
+      const db = client.db("CoinCap");
+      database.db(db);
+      cron.schedule("*/10 * * * *", () => {
+        Coin.updateDB();
+      });
+      app.listen(port, () => {
+        console.log("app is running in port " + port);
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      console.log("Failed to connect to database");
+    });
   res.send("api works!");
 });
 
