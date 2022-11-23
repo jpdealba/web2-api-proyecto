@@ -17,7 +17,7 @@ var cors = require("cors");
 app.use(cors());
 app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-const port = process.env.PORT || 4004;
+const port = process.env.PORT || 3000;
 app.use(express.json());
 
 app.get("/google/:token", (req, res) => {
