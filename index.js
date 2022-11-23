@@ -49,6 +49,7 @@ database
     });
   })
   .catch((err) => {
+    console.log(err);
     console.log("Failed to connect to database");
   });
 
