@@ -61,13 +61,13 @@ app.get("", (req, res) => {
       const db = client.db("CoinCap");
       database.db(db);
       console.log("si");
+      res.send("api works!");
     })
     .catch((err) => {
       console.log(err);
       console.log("Failed to connect to database");
+      res.send("Not connected to db");
     });
-  console.log("aqui");
-  res.send("api works!");
 });
 
 app.use("/api", apiRoutes);
