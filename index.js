@@ -15,10 +15,28 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 const googleClient = new OAuth2Client(process.env.GOOGLE_ID);
 var cors = require("cors");
 app.use(cors());
-app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 const port = process.env.PORT || 3000;
 app.use(express.json());
+
+database
+  .connect()
+  .then((client) => {
+    const db = client.db("CoinCap");
+    database.db(db);
+    cron.schedule("*/5 * * * *", () => {
+      Coin.updateDB();
+    });
+    app.listen(port, () => {
+      console.log("app is running in port " + port);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+    console.log("Failed to connect to database");
+  });
+
+app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.get("/google/:token", (req, res) => {
   const token = req.params.token;
@@ -36,40 +54,19 @@ app.get("/google/:token", (req, res) => {
     });
 });
 
-database
-  .connect()
-  .then((client) => {
-    const db = client.db("CoinCap");
-    database.db(db);
-    cron.schedule("*/10 * * * *", () => {
-      Coin.updateDB();
-    });
-    app.listen(port, () => {
-      console.log("app is running in port " + port);
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-    console.log("Failed to connect to database");
-  });
-
 app.get("", (req, res) => {
   database
     .connect()
     .then((client) => {
       const db = client.db("CoinCap");
       database.db(db);
-      cron.schedule("*/10 * * * *", () => {
-        Coin.updateDB();
-      });
-      app.listen(port, () => {
-        console.log("app is running in port " + port);
-      });
+      console.log("si");
     })
     .catch((err) => {
       console.log(err);
       console.log("Failed to connect to database");
     });
+  console.log("aqui");
   res.send("api works!");
 });
 
