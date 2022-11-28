@@ -55,7 +55,19 @@ app.get("/google/:token", (req, res) => {
 });
 
 app.get("", (req, res) => {
-  res.send("api works!");
+  database
+    .connect()
+    .then((client) => {
+      const db = client.db("CoinCap");
+      database.db(db);
+      console.log("si");
+      res.send("api works!");
+    })
+    .catch((err) => {
+      console.log(err);
+      console.log("Failed to connect to database");
+      res.send("Not connected to db");
+    });
 });
 
 app.use("/api", data.dbConnection, apiRoutes);
