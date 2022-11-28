@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("./controller");
+const archivo = require("../middlewares/multer");
 
 // Obtiene el usuario
 /**
@@ -84,5 +85,11 @@ router.put("/:id", controller.putOne);
  *        description: Not found
  */
 router.delete("/:id", controller.deleteOne);
+
+// Post image
+router.post("/image", archivo.single("file"), controller.saveOne);
+
+// Get image
+router.get("/image/:user_id", controller.getImage);
 
 module.exports = router;

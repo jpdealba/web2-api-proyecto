@@ -1,3 +1,4 @@
+const path = require("path");
 const UserModel = require("./model");
 
 class UserController {
@@ -47,6 +48,15 @@ class UserController {
         res.status(404).json({ error: "Not found" });
       }
     });
+  }
+
+  saveOne(req, res) {
+    res.send("sent");
+  }
+
+  getImage(req, res) {
+    const id = req.params.user_id;
+    res.sendFile(path.join(__dirname, "../..", `public/uploads/${id}.png`));
   }
 }
 

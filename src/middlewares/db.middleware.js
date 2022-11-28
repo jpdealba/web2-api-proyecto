@@ -5,7 +5,6 @@ const Coin = new CoinModel();
 
 module.exports = {
   dbConnection: function (req, res, next) {
-    console.log(database.db());
     if (!database.db()) {
       database
         .connect()

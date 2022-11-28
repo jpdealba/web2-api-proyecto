@@ -30,6 +30,8 @@ class User {
       { $set: { suspended: true } }
     );
   }
+
+  async findImage(user_id) {}
 }
 
 module.exports = User;
