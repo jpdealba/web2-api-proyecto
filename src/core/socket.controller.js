@@ -7,7 +7,7 @@ module.exports = {
     console.log(`Connection from user ${socket.id}`);
 
     //Join to a room (game)
-    socket.on("join-coin", (coin) => {
+    socket.on("join-room", (coin) => {
       console.log(`User ${socket.id} connected to room ${coin}`);
       socket.join(coin);
     });
