@@ -6,7 +6,7 @@ const app = express();
 const CoinModel = require("./src/coins/model");
 const Coin = new CoinModel();
 var cron = require("node-cron");
-
+const data = require("./src/middlewares/db.middleware");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const swaggerOptions = require("./swagger.json");
@@ -55,21 +55,9 @@ app.get("/google/:token", (req, res) => {
 });
 
 app.get("", (req, res) => {
-  database
-    .connect()
-    .then((client) => {
-      const db = client.db("CoinCap");
-      database.db(db);
-      console.log("si");
-      res.send("api works!");
-    })
-    .catch((err) => {
-      console.log(err);
-      console.log("Failed to connect to database");
-      res.send("Not connected to db");
-    });
+  res.send("api works!");
 });
 
-app.use("/api", apiRoutes);
+app.use("/api", data.dbConnection, apiRoutes);
 
 module.exports = app;
