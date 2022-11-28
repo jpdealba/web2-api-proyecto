@@ -12,7 +12,8 @@ const swaggerOptions = require("./swagger.json");
 const bodyParser = require("body-parser");
 const { OAuth2Client } = require("google-auth-library");
 const path = require("path");
-const socketIo = require("socket.io");
+//import socket conf
+const socket = require("./src/core/index");
 
 require("dotenv").config();
 
@@ -37,25 +38,6 @@ database
   .then((client) => {
     const db = client.db("CoinCap");
     database.db(db);
-
-    const server = app.listen(port, () => {
-      console.log("app is running in port " + port);
-    });
-
-    const io = socketIo(server, {
-      cors: {
-        origin: "*",
-      },
-    });
-
-    io.on("connection", (socket) => {
-      console.log("Alguien se conecto!");
-
-      socket.on("share", (data) => {
-        console.log("Alguien compartio un meme", data);
-        socket.broadcast.emit("onShared", data);
-      });
-    });
   })
   .catch((err) => {
     console.log(err);
@@ -66,6 +48,13 @@ app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 cron.schedule("*/5 * * * *", () => {
   Coin.updateDB();
 });
+//List to port
+const server = app.listen(port, () =>
+  console.log(`app is listening to port: ${port}`)
+);
+//connect to socket
+socket.connect(server);
+
 app.get("/google/:token", (req, res) => {
   const token = req.params.token;
   googleClient
