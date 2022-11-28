@@ -8,6 +8,7 @@ const dbConnection = database
   .connect()
   .then((client) => {
     const db = client.db("CoinCap");
+    //  o
     database.db(db);
     cron.schedule("*/5 * * * *", () => {
       Coin.updateDB();
