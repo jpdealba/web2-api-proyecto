@@ -4,7 +4,7 @@ const database = require("./database");
 const apiRoutes = require("./src/api");
 const app = express();
 const CoinModel = require("./src/coins/model");
-// const Coin = new CoinModel();
+const Coin = new CoinModel();
 var cron = require("node-cron");
 
 const swaggerJsDoc = require("swagger-jsdoc");
