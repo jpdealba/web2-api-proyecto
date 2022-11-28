@@ -3,6 +3,7 @@ var cron = require("node-cron");
 const CoinModel = require("../coins/model");
 const Coin = new CoinModel();
 
+// Not in use
 const dbConnection = database
   .connect()
   .then((client) => {
