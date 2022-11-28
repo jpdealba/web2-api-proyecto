@@ -3,13 +3,9 @@ var cron = require("node-cron");
 const CoinModel = require("../coins/model");
 const Coin = new CoinModel();
 
-// // Not in use
-// const dbConnection = function () {
-
-// };
-
 module.exports = {
   dbConnection: function (req, res, next) {
+    console.log(database.db());
     if (!database.db()) {
       database
         .connect()
