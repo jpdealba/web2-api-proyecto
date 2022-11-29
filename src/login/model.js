@@ -3,9 +3,9 @@ const jwt = require("jsonwebtoken");
 
 class Login {
   async createOne(data) {
-    const db = database();
-    const collection = db.collection("users");
     try {
+      const db = database();
+      const collection = db.collection("users");
       const resp = await collection.findOne({
         email: data.email,
         password: data.password,
@@ -28,11 +28,10 @@ class Login {
 
   async verifyOne(token) {
     if (!token) return false;
-    const db = database();
-    const collection = db.collection("users");
+
     try {
-      // const db = database();
-      // const collection = db.collection("users");
+      const db = database();
+      const collection = db.collection("users");
       const decoded = jwt.decode(token, process.env.TOKEN_SECRET);
       const resp = await collection.findOne({
         email: decoded.email,
