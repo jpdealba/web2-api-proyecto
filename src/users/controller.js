@@ -7,7 +7,7 @@ class UserController {
     User.createOne(req.body).then(async (resp) => {
       if (resp.insertedId) {
         const balance = new BalanceModel();
-        balance.updateCoinFromUser(resp.insertedId, "usdt", 10000);
+        balance.updateCoinFromUser(resp.insertedId.str, "usdt", 10000);
         res.send(resp.insertedId).status(201);
       } else {
         res.status(500).json({ error: "Server Error" });
