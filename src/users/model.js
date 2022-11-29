@@ -1,5 +1,4 @@
 const database = require("../../database/database");
-
 class User {
   async findOne(user_id) {
     const db = database();
@@ -13,6 +12,7 @@ class User {
   async createOne(data) {
     const db = database();
     const collection = db.collection("users");
+
     return await collection.insertOne({ ...data, roles: ["user"] });
   }
 

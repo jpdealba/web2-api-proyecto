@@ -1,11 +1,13 @@
 const path = require("path");
 const UserModel = require("./model");
-
+const BalanceModel = require("../balance/model");
 class UserController {
   postOne(req, res) {
     const User = new UserModel();
-    User.createOne(req.body).then((resp) => {
+    User.createOne(req.body).then(async (resp) => {
       if (resp.insertedId) {
+        const balance = new BalanceModel();
+        balance.updateCoinFromUser(resp.insertedId, "usdt", 10000);
         res.send(resp.insertedId).status(201);
       } else {
         res.status(500).json({ error: "Server Error" });
