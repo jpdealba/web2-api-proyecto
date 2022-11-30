@@ -8,6 +8,7 @@ class Coin {
       const result = await collection.find({}).toArray();
       return result;
     } catch (err) {
+      console.log(err);
       return null;
     }
   }
@@ -19,6 +20,7 @@ class Coin {
       const result = await collection.findOne({ symbol: id });
       return result;
     } catch (err) {
+      console.log(err);
       return null;
     }
   }
@@ -76,6 +78,7 @@ class Coin {
         });
       return true;
     } catch (err) {
+      console.log(err);
       return null;
     }
   }

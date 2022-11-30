@@ -9,6 +9,7 @@ class User {
         return { message: "account suspended" };
       } else return result;
     } catch (err) {
+      console.log(err);
       return null;
     }
   }
@@ -20,6 +21,7 @@ class User {
 
       return await collection.insertOne({ ...data, roles: ["user"] });
     } catch (err) {
+      console.log(err);
       return null;
     }
   }
@@ -30,6 +32,7 @@ class User {
       const collection = db.collection("users");
       return await collection.updateOne({ _id: userId }, { $set: data });
     } catch (err) {
+      console.log(err);
       return null;
     }
   }
@@ -43,6 +46,7 @@ class User {
         { $set: { suspended: true } }
       );
     } catch (err) {
+      console.log(err);
       return null;
     }
   }

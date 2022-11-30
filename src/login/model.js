@@ -22,6 +22,7 @@ class Login {
         return null;
       }
     } catch (err) {
+      console.log(err);
       return null;
     }
   }
@@ -39,12 +40,14 @@ class Login {
       });
       return jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
         if (err) {
+          console.log(err);
           return false;
         } else {
           return { ...resp, token: token };
         }
       });
     } catch (err) {
+      console.log(err);
       return false;
     }
   }

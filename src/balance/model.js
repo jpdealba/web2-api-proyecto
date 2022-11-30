@@ -8,6 +8,7 @@ class Balance {
       const result = await collection.find({ user_id: id }).toArray();
       return result;
     } catch (err) {
+      console.log(err);
       return null;
     }
   }
@@ -21,6 +22,7 @@ class Balance {
       });
       return result;
     } catch (err) {
+      console.log(err);
       return null;
     }
   }
@@ -46,6 +48,7 @@ class Balance {
         });
       }
     } catch (err) {
+      console.log(err);
       return null;
     }
   }

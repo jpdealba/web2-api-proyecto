@@ -10,6 +10,7 @@ class Transaction {
       const result = await collection.find({ user_id: user_id }).toArray();
       return result;
     } catch (err) {
+      console.log(err);
       return null;
     }
   }
@@ -23,6 +24,7 @@ class Transaction {
         .toArray();
       return result;
     } catch (err) {
+      console.log(err);
       return null;
     }
   }
@@ -65,6 +67,7 @@ class Transaction {
         return null;
       }
     } catch (err) {
+      console.log(err);
       return null;
     }
   }
