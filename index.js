@@ -12,6 +12,7 @@ const swaggerOptions = require("./swagger.json");
 const bodyParser = require("body-parser");
 const { OAuth2Client } = require("google-auth-library");
 const path = require("path");
+const UserModel = require("./src/users/model");
 //import socket conf
 const socket = require("./src/core/index");
 
@@ -59,11 +60,13 @@ app.get("/google/:token", (req, res) => {
   const token = req.params.token;
   googleClient
     .verifyIdToken({ idToken: token })
-    .then((response) => {
+    .then(async (response) => {
       const data = response.getPayload();
       console.log("Data: ", data);
       console.log("valid");
-      res.send({ isvalid: true });
+      const User = new UserModel();
+      const user = await User.findByEmail(data.email);
+      res.send({ ...user, isvalid: true });
     })
     .catch((err) => {
       console.log("Failed to validate token");
