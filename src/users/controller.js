@@ -53,7 +53,7 @@ class UserController {
   }
 
   saveOne(req, res) {
-    res.send("sent");
+    res.send({ status: "uploaded" });
   }
 
   getImage(req, res) {
