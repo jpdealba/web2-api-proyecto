@@ -14,8 +14,7 @@ module.exports = {
 
     //If someone make a transaction
     socket.on("transaction-case", (room, data) => {
-      console.log(room, data);
-      socket.to(room).emit("transaction-case", "aqui");
+      socket.to(room).emit("transaction-case", data);
     });
   },
 };
