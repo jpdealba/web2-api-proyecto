@@ -5,10 +5,12 @@ class UserController {
   postOne(req, res) {
     const User = new UserModel();
     User.createOne(req.body).then(async (resp) => {
-      if (resp.insertedId) {
+      if (resp && resp.insertedId) {
         const balance = new BalanceModel();
         balance.updateCoinFromUser(resp.insertedId.str, "usdt", 10000);
         res.send(resp.insertedId).status(201);
+      } else if (resp && resp._id) {
+        res.send(resp);
       } else {
         res.status(500).json({ error: "Server Error" });
       }
