@@ -6,15 +6,16 @@ module.exports = {
   connectSocket: (socket) => {
     console.log(`Connection from user ${socket.id}`);
 
-    //Join to a room (game)
+    //Join to a room (coin)
     socket.on("join-room", (coin) => {
       console.log(`User ${socket.id} connected to room ${coin}`);
       socket.join(coin);
     });
 
-    //If someone win
-    socket.on("transaction-case", (room, id) => {
-      console.log(room, id);
+    //If someone make a transaction
+    socket.on("transaction-case", (room, data) => {
+      console.log(room, data);
+      socket.to(room).emit("transaction-case", "aqui");
     });
   },
 };

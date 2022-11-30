@@ -2,11 +2,11 @@ const socketIo = require("socket.io");
 const { connectSocket } = require("./socket.controller");
 
 const connect = (server) => {
-  const url = process.env.SOCKET_URL || "http://localhost:3000";
+  // const url = process.env.SOCKET_URL || "http://localhost:3000";
   console.log("aqui");
   const conf = {
     cors: {
-      origin: url,
+      origin: "*",
       methods: ["GET", "POST", "PUT", "DELETE"],
       allowHeaders: ["Authorization"],
     },

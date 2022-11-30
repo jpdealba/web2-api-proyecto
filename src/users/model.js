@@ -16,6 +16,20 @@ class User {
     }
   }
 
+  async findByEmail(email) {
+    try {
+      const db = database();
+      const collection = db.collection("users");
+      const result = await collection.findOne({ email: email });
+      if (result && result.suspended) {
+        return { message: "account suspended" };
+      } else return result;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  }
+
   async createOne(data) {
     try {
       const db = database();
