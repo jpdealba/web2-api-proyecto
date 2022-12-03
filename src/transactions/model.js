@@ -7,7 +7,10 @@ class Transaction {
     try {
       const db = database();
       const collection = db.collection("transactions");
-      const result = await collection.find({ user_id: user_id }).toArray();
+      const result = await collection
+        .find({ user_id: user_id })
+        .sort({ timestamp: -1 })
+        .toArray();
       return result;
     } catch (err) {
       console.log(err);
@@ -21,6 +24,7 @@ class Transaction {
       const collection = db.collection("transactions");
       const result = await collection
         .find({ $or: [{ symbol_from: symbol }, { symbol_to: symbol }] })
+        .sort({ timestamp: -1 })
         .toArray();
       return result;
     } catch (err) {
