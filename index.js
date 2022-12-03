@@ -39,6 +39,9 @@ database
   .then((client) => {
     const db = client.db("CoinCap");
     database.db(db);
+    cron.schedule("*/5 * * * *", () => {
+      Coin.updateDB();
+    });
   })
   .catch((err) => {
     console.log(err);
@@ -46,9 +49,7 @@ database
   });
 
 app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-cron.schedule("*/5 * * * *", () => {
-  Coin.updateDB();
-});
+
 //List to port
 const server = app.listen(port, () =>
   console.log(`app is listening to port: ${port}`)
