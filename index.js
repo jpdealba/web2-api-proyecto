@@ -39,7 +39,7 @@ database
   .then((client) => {
     const db = client.db("CoinCap");
     database.db(db);
-    cron.schedule("*/5 * * * *", () => {
+    cron.schedule("*/1 * * * *", () => {
       Coin.updateDB();
     });
   })
