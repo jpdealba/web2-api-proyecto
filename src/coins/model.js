@@ -42,8 +42,9 @@ class Coin {
                 const collection = db.collection("coins");
                 if (res.data && res.data.length > 0) {
                   const bulk = collection.initializeUnorderedBulkOp();
-                  console.log(res.data);
-                  res.data.map((coin) => {
+                  console.log(typeof res.data);
+
+                  JSON.parse(res.data).map((coin) => {
                     bulk
                       .find({ id: coin.id })
                       .upsert()
