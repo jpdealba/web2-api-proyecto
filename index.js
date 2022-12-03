@@ -21,6 +21,7 @@ require("dotenv").config();
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 const googleClient = new OAuth2Client(process.env.GOOGLE_ID);
 var cors = require("cors");
+const { default: axios } = require("axios");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 var defaults = {
@@ -39,8 +40,14 @@ database
   .then((client) => {
     const db = client.db("CoinCap");
     database.db(db);
-    cron.schedule("*/1 * * * *", () => {
-      Coin.updateDB();
+    cron.schedule("*/1 * * * *", async () => {
+      // Coin.updateDB();
+      const url =
+        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&sparkline=false";
+      const res = await axios.get(url);
+      console.log("result is: ", res.data);
+      console.log(typeof res.data);
+      console.log(res.data.length);
     });
   })
   .catch((err) => {
