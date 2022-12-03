@@ -33,9 +33,10 @@ class Coin {
       const url =
         "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&sparkline=false";
       const res = await axios.get(url);
-      console.log("result is: ", res.data);
-      console.log(typeof res.data);
-      console.log(res.data.length);
+      console.log(JSON.stringify(res.data));
+      console.log(typeof JSON.stringify(res.data));
+      console.log(JSON.stringify(res.data).length);
+      console.log(JSON.parse(res.data).length);
       //   dbd
       //     .connect()
       //     .then((client) => {
