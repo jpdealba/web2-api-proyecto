@@ -30,10 +30,12 @@ class Coin {
 
   async updateDB() {
     try {
-      const result = await getRequest();
-      console.log("result is: 👉️", result);
-      console.log(typeof result);
-      console.log(result.length);
+      const url =
+        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&sparkline=false";
+      const res = await axios.get(url);
+      console.log("result is: 👉️", res.data);
+      console.log(typeof res.data);
+      console.log(res.data.length);
       //   dbd
       //     .connect()
       //     .then((client) => {
