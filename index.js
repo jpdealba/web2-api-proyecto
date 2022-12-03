@@ -80,7 +80,6 @@ app.get("", (req, res) => {
     .then((client) => {
       const db = client.db("CoinCap");
       database.db(db);
-      console.log("si");
       res.send("api works!");
     })
     .catch((err) => {

@@ -3,7 +3,6 @@ const { connectSocket } = require("./socket.controller");
 
 const connect = (server) => {
   // const url = process.env.SOCKET_URL || "http://localhost:3000";
-  console.log("aqui");
   const conf = {
     cors: {
       origin: "*",
