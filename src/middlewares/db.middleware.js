@@ -12,9 +12,9 @@ module.exports = {
         .then((client) => {
           const db = client.db("CoinCap");
           database.db(db);
-          cron.schedule("*/5 * * * *", () => {
-            Coin.updateDB();
-          });
+          // cron.schedule("*/5 * * * *", () => {
+          //   Coin.updateDB();
+          // });
         })
         .catch((err) => {
           console.log(err);
