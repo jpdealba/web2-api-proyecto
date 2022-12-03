@@ -35,6 +35,7 @@ class Coin {
         .catch((err) => console.log(err))
         .then((res) => {
           try {
+            console.log(res.data.length);
             const db = database();
             if (db) {
               const collection = db.collection("coins");
